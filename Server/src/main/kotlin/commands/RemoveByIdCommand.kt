@@ -16,9 +16,5 @@ class RemoveByIdCommand : Command() {
         }
     }
 
-    override fun readArguments(input: () -> String): List<Any> {
-        val idStr = input()
-        val id = idStr.toLongOrNull() ?: throw IllegalArgumentException("Invalid ID")
-        return listOf(id)
-    }
+
 }

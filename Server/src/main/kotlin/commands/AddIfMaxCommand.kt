@@ -19,9 +19,5 @@ class AddIfMaxCommand : Command() {
         return if (added) Messages.LAB_WORK_SUCCESS_ADD else Messages.LAB_WORK_NOT_MAX
     }
 
-    override fun readArguments(input: () -> String): List<Any> {
-        val labWorkReader = LabWorkReader(input, validator)
-        val labWork = labWorkReader.readLabWork()
-        return listOf(labWork)
-    }
+
 }

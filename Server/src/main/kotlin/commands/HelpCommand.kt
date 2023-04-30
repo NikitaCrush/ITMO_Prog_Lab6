@@ -39,7 +39,5 @@ class HelpCommand(private val commandExecutor: CommandExecutor) : Command() {
         return helpText.toString()
     }
 
-    override fun readArguments(input: () -> String): List<Any> {
-        return emptyList()
-    }
+
 }

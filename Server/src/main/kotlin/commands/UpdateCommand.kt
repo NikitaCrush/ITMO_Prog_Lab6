@@ -39,8 +39,5 @@ class UpdateCommand : Command() {
         }
     }
 
-    override fun readArguments(input: () -> String): List<Any> {
-        val inputString = input()
-        return listOf(inputString.trim())
-    }
+
 }

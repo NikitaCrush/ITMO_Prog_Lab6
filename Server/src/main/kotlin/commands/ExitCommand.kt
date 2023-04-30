@@ -10,7 +10,5 @@ class ExitCommand : Command() {
         exitProcess(0)
     }
 
-    override fun readArguments(input: () -> String): List<String> {
-        return emptyList()
-    }
+
 }

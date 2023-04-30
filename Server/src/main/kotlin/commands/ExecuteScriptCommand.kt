@@ -53,22 +53,6 @@ class ExecuteScriptCommand(
         }
     }
 
-    override fun readArguments(input: () -> String): List<Any> {
-        val fileName = input()
-        if (fileName.isBlank()) {
-            throw FileNotFoundException("There is no file name")
-        }
-        val file = File(fileName)
-        if (!file.exists()) {
-            throw FileNotFoundException(Messages.FILE_NOT_FOUND + fileName)
-        }
 
-        val fileParts = fileName.split(" ", limit = 2)
-        if (fileParts.size > 1) {
-            throw IllegalArgumentException("Unexpected argument after the file name: '${fileParts[1]}'")
-        }
-
-        return listOf(fileName)
-    }
 
 }
