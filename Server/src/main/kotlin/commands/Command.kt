@@ -11,4 +11,8 @@ abstract class Command: KoinComponent {
     val validator: Validator by inject()
     val labWorkCollection: LabWorkCollection by inject()
     abstract fun execute(args: List<Any>): String
+
+    open fun readArguments(input: () -> String): List<Any> {
+        return emptyList()
+    }
 }

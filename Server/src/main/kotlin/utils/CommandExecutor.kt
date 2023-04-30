@@ -21,7 +21,7 @@ class CommandExecutor(printer: Printer) {
         commandMap["remove_by_id"] = RemoveByIdCommand()
         commandMap["clear"] = ClearCommand()
         commandMap["save"] = SaveCommand()
-        commandMap["execute_script"] = ExecuteScriptCommand(CommandParser(this), printer)
+        commandMap["execute_script"] = ExecuteScriptCommand(this, printer)
         commandMap["exit"] = ExitCommand()
         commandMap["remove_first"] = RemoveFirstCommand()
         commandMap["remove_head"] = RemoveHeadCommand()
