@@ -3,7 +3,22 @@ package workWithServer
 import java.io.BufferedReader
 import java.io.FileReader
 
+/**
+ * A class representing a script reader that reads commands from a script file and generates tasks based on them.
+ *
+ */
+
 class ScriptReader{
+
+    /**
+     * Reads commands from a script file and generates tasks based on them.
+     *
+     * @param path The path to the script file.
+     * @param tokenizator An instance of the Tokenizator class which is used to tokenize the commands in the script.
+     * @param historyOfPaths A list of paths that have already been processed to prevent infinite recursion in case of loops.
+     * @return A mutable list of tasks generated from the commands in the script.
+     */
+
     fun readScript(
         path: String,
         tokenizator: Tokenizator,

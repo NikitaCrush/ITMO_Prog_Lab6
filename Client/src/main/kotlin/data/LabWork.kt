@@ -1,8 +1,8 @@
 package data
 
-import java.time.LocalDateTime
 import kotlinx.serialization.Serializable
 import utils.LocalDateTimeSerializer
+import java.time.LocalDate
 
 /**
  * A data class representing a lab work with various attributes.
@@ -22,7 +22,7 @@ data class LabWork(
     val name: String,       //Поле не может быть null, Строка не может быть пустой
     val coordinates: Coordinates,//Поле не может быть null
     @Serializable(with = LocalDateTimeSerializer::class)
-    val creationDate: LocalDateTime,//Значение поля должно быть больше 0
+    val creationDate: LocalDate,//Значение поля должно быть больше 0
     val minimalPoint: Int,//Значение поля должно быть больше 0
     val personalQualitiesMinimum: Int,//Поле не может быть null, Значение поля должно быть больше 0
     val difficulty: Difficulty?,//Поле может быть null

@@ -8,21 +8,20 @@ import java.util.function.Predicate
 typealias  TypeCaster<T> = (userInput: String) -> T
 
 /**
- * Класс для работы команды insert. Пошагово вводит поля, запрпашивая от пользователя
- * введение правильных данных при их ошибочном введении
- * @param toIntCaster перевод к типу Int
- * @param toLongCaster перевод к типу Long
+ * A class representing an object that prompts the user for input and casts it to a specified type.
+ *
  */
+
 class Asker {
 
     /**
-     * Метод чтения данных, введенных пользователем и попытке привести их
-     * к нужному типу данных
+     * Prompts the user for input of a specific type, validates the input using a validator function, and returns the input value.
      *
-     * @param caster
-     * @param validator
-     * @return T
+     * @param caster A function that casts the user's input string to the desired type.
+     * @param validator A predicate function that takes a value of the desired type as a parameter and checks if it is valid.
+     * @return The user's input value of the desired type.
      */
+
     fun <T> readType(caster: TypeCaster<T>, validator: Predicate<T>): T {
         var output: T
         while (true) {
@@ -56,22 +55,16 @@ class Asker {
         return output
     }
 
+    // Type casters for common data types:
     val toIntCaster: TypeCaster<Int> = { it.trim().toInt() }
 
     val toLongCaster: TypeCaster<Long> = { it.trim().toLong() }
 
-    /**
-     * Метод для приведения введенных данных к значению Enum
-     * @param userInput
-     */
     inline fun <reified T : Enum<T>> toEnumCaster(userInput: String): T {
         return enumValueOf(userInput.trim().uppercase())
     }
 
-    /**
-     * Метод для приведения введенных данных к значению Enum (с учетом того, что данные могут быть null)
-     * @param userInput
-     */
+
     inline fun <reified T : Enum<T>> toEnumOrNullCaster(userInput: String): T? {
         if (userInput.isEmpty()) {
             return null
@@ -80,9 +73,11 @@ class Asker {
     }
 
     /**
-     * Метод для введения полей класса Discipline
-     * @return Discipline
+     * Prompts the user for input of discipline information and returns a new Discipline object.
+     *
+     * @return A new Discipline object with information provided by the user.
      */
+
     fun askDiscipline(): Discipline {
         println("Введите название предмета, по которому дана лабораторная работа")
         val name = readType(caster = { it }, validator = { it.isNotEmpty() })
@@ -95,9 +90,11 @@ class Asker {
     }
 
     /**
-     * Метод для введения полей класса Coordinates
-     * @return Coordinates
+     * Prompts the user for input of coordinate information and returns a new Coordinates object.
+     *
+     * @return A new Coordinates object with information provided by the user.
      */
+
     fun askCoordinates(): Coordinates {
         println("Введите координату х")
         val x = readType(caster = toLongCaster, validator = { it <= 608 })
@@ -107,9 +104,11 @@ class Asker {
     }
 
     /**
-     * Метод для введения полей класса LabWork
-     * @return LabWork
+     * Prompts the user for input of laboratory work information and returns a new LabWork object.
+     *
+     * @return A new LabWork object with information provided by the user.
      */
+
     fun askLabWork(): LabWork {
         println("Введите id лабораторной работы")
         val id = readType(caster = toLongCaster, validator = { it > 0 })
@@ -130,10 +129,12 @@ class Asker {
         val personalQualitiesMinimum = readType(caster = toIntCaster, validator = { it > 0 })
 
         println(
-            "Введите сложность лабораторной рпаботы ${
+            "Введите сложность лабораторной работы ${
                 Difficulty.values().map { it.toString() }
             } или оставьте строку пустой для null"
         )
+        val difficultyInput = readLine() ?: ""
+        val difficulty = if (difficultyInput.isNotEmpty()) Difficulty.valueOf(difficultyInput) else null
 
         println("Введите поля дисциплины")
         val discipline = askDiscipline()
@@ -145,14 +146,17 @@ class Asker {
             creationDate,
             minimalPoint,
             personalQualitiesMinimum,
+            difficulty,
             discipline
         )
     }
 
     /**
-     * Метод запроса команд
-     * @return String
+     * Prompts the user for input as a string and returns it.
+     *
+     * @return The user's input value as a string.
      */
+
     fun askCommand(): String {
 
         val command = readType(caster = { it }, validator = { it.isNotEmpty() })
@@ -160,9 +164,11 @@ class Asker {
     }
 
     /**
-     * Метод запроса числа типа Long
-     * @return Long
+     * Prompts the user for input as a long integer and returns it.
+     *
+     * @return The user's input value as a long integer.
      */
+
     fun askLong(): Long {
         return readType(caster = toLongCaster, validator = { it > 0 })
     }

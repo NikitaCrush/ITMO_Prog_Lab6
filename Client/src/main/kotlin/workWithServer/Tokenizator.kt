@@ -1,14 +1,19 @@
 package workWithServer
 
+/**
+ * A class representing a tokenizer that splits a command string into separate components.
+ *
+ */
+
 class Tokenizator{
 
     /**
-     * Метод для токенизации команд
-     * @param command
-     * @param path
-     * @param history
-     * @return MutableList<String>
+     * Splits a command string into separate components and returns them as a mutable list of strings.
+     *
+     * @param command The command to tokenize.
+     * @return A mutable list of strings containing the individual components of the command.
      */
+
     fun tokenizateCommand(command: String): MutableList<String> {
         val commandComponent1 = command.split(" ").toMutableList()
         val commandComponent2: MutableList<String> = listOf<String>().toMutableList()
@@ -21,8 +26,5 @@ class Tokenizator{
             commandComponent2.removeAt(2)
         }
         return commandComponent2
-
     }
-
-
 }
