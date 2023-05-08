@@ -22,7 +22,6 @@ class CommandExecutor(printer: Printer) {
         commandMap["clear"] = ClearCommand()
         commandMap["save"] = SaveCommand()
         commandMap["execute_script"] = ExecuteScriptCommand(this, printer)
-        commandMap["exit"] = ExitCommand()
         commandMap["remove_first"] = RemoveFirstCommand()
         commandMap["remove_head"] = RemoveHeadCommand()
         commandMap["add_if_max"] = AddIfMaxCommand()

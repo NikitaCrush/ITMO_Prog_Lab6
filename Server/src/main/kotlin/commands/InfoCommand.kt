@@ -10,5 +10,7 @@ class InfoCommand : Command() {
         return labWorkCollection.getInfo()
     }
 
-
+    override fun readArguments(input: () -> String): List<String> {
+        return emptyList()
+    }
 }

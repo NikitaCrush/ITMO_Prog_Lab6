@@ -1,6 +1,10 @@
 import server.Server
+import utils.CommandExecutor
+import utils.ConsolePrinter
 
 fun main() {
-    val server = Server(8080)
+    val printer = ConsolePrinter()
+    val commandExecutor = CommandExecutor(printer)
+    val server = Server(3334, commandExecutor)
     server.start()
 }

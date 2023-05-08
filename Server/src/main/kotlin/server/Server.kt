@@ -1,10 +1,14 @@
 package server
 
+import utils.CommandExecutor
 import java.net.InetSocketAddress
 import java.nio.channels.ServerSocketChannel
 import java.nio.channels.SocketChannel
+import java.util.concurrent.Executors
 
-class Server(private val port: Int) {
+class Server(private val port: Int, private val commandExecutor: CommandExecutor) {
+
+    private val threadPool = Executors.newFixedThreadPool(4)
 
     fun start() {
         val serverChannel = ServerSocketChannel.open()
@@ -22,8 +26,7 @@ class Server(private val port: Int) {
     }
 
     private fun handleConnection(socketChannel: SocketChannel) {
-        val connectionHandler = ConnectionHandler(socketChannel)
-        connectionHandler.handleConnection()
+        val connectionHandler = ConnectionHandler(socketChannel, commandExecutor)
+        threadPool.submit { connectionHandler.handleConnection() }
     }
 }
-

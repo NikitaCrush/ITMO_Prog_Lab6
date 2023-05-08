@@ -1,6 +1,7 @@
 // Response.kt
 package server
 
-import java.io.Serializable
+import kotlinx.serialization.Serializable
 
-data class Response(val result: String) : Serializable
+@Serializable
+data class Response(val result: String, val availableCommands: Set<String>)

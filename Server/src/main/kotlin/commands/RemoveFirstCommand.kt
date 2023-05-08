@@ -11,4 +11,5 @@ class RemoveFirstCommand : Command() {
         return "First element removed successfully."
     }
 
+    override fun readArguments(input: () -> String): List<String> = emptyList()
 }

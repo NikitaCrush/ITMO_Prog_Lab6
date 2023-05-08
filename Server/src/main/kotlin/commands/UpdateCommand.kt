@@ -38,6 +38,9 @@ class UpdateCommand : Command() {
             "No lab work found with ID: $id."
         }
     }
-
+    override fun readArguments(input: () -> String): List<Any> {
+        val inputString = input()
+        return listOf(inputString.trim())
+    }
 
 }

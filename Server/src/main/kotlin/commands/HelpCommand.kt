@@ -18,7 +18,7 @@ class HelpCommand(private val commandExecutor: CommandExecutor) : Command() {
         "clear" to "clear : clear the collection",
         "save" to "save : save the collection to a file",
         "execute_script" to "execute_script file_name : read and execute a script from the specified file. The script contains commands in the same form as the user enters them in interactive mode.",
-       "exit" to "exit : end the program (without saving it to a file)",
+        "exit" to "exit : end the program (without saving it to a file)",
         "remove_first" to "remove_first : remove the first element from the collection",
         "remove_head" to "remove_head : display the first element of the collection and remove it",
         "add_if_max" to "add_if_max {element} : add a new element to the collection if its value exceeds the value of the largest element in this collection",
@@ -39,5 +39,7 @@ class HelpCommand(private val commandExecutor: CommandExecutor) : Command() {
         return helpText.toString()
     }
 
-
+    override fun readArguments(input: () -> String): List<Any> {
+        return emptyList()
+    }
 }

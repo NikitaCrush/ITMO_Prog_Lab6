@@ -11,5 +11,8 @@ class PrintUniqueMinimalPointCommand : Command() {
         return labWorkCollection.printUniqueMinimalPoint().joinToString("\n")
     }
 
-
+    override fun readArguments(input: () -> String): List<String> {
+        // No arguments required
+        return emptyList()
+    }
 }

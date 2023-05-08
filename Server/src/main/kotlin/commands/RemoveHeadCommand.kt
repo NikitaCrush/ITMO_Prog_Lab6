@@ -10,5 +10,7 @@ class RemoveHeadCommand : Command() {
         return labWorkCollection.removeHead().toString()
     }
 
-
+    override fun readArguments(input: () -> String): List<String> {
+        return emptyList()
+    }
 }

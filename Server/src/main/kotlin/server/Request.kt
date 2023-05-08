@@ -1,7 +1,10 @@
 // Request.kt
 package server
 
-import commands.Command
-import java.io.Serializable
+import kotlinx.serialization.Serializable
 
-data class Request(val command: Command, val args: List<Any>) : Serializable
+@Serializable
+data class Request(val commandName: String, val args: List<CommandArgument>)
+
+@Serializable
+data class CommandArgument(val name: String, val value: String)
