@@ -1,0 +1,210 @@
+[
+    {
+        "id": 483783784029705627,
+        "name": "aa",
+        "coordinates": {
+            "x": 1,
+            "y": 1.0
+        },
+        "creationDate": "2023-04-06T22:01:16.6138041",
+        "minimalPoint": 1,
+        "personalQualitiesMinimum": 1,
+        "difficulty": "EASY",
+        "discipline": {
+            "name": "aaa",
+            "selfStudyHours": 12
+        }
+    },
+    {
+        "id": 591438360444216039,
+        "name": "frd",
+        "coordinates": {
+            "x": 34,
+            "y": 43.0
+        },
+        "creationDate": "2023-03-30T07:01:14.7330503",
+        "minimalPoint": 3,
+        "personalQualitiesMinimum": 4,
+        "difficulty": null,
+        "discipline": {
+            "name": "43",
+            "selfStudyHours": 34
+        }
+    },
+    {
+        "id": 2665037481672475224,
+        "name": "rf",
+        "coordinates": {
+            "x": 4,
+            "y": 4.0
+        },
+        "creationDate": "2023-04-11T16:51:00.059895",
+        "minimalPoint": 4,
+        "personalQualitiesMinimum": 4,
+        "difficulty": null,
+        "discipline": {
+            "name": "4",
+            "selfStudyHours": 4
+        }
+    },
+    {
+        "id": 5522089031849077517,
+        "name": "hjk",
+        "coordinates": {
+            "x": 14,
+            "y": 56.0
+        },
+        "creationDate": "2023-03-30T07:01:14.7330503",
+        "minimalPoint": 6,
+        "personalQualitiesMinimum": 4,
+        "difficulty": "EASY",
+        "discipline": {
+            "name": "vbjjhn",
+            "selfStudyHours": 77
+        }
+    },
+    {
+        "id": 778303997361720938,
+        "name": "frd",
+        "coordinates": {
+            "x": 34,
+            "y": 43.0
+        },
+        "creationDate": "2023-03-30T06:14:54.1805774",
+        "minimalPoint": 3,
+        "personalQualitiesMinimum": 4,
+        "difficulty": null,
+        "discipline": {
+            "name": "43",
+            "selfStudyHours": 34
+        }
+    },
+    {
+        "id": 2692400319936777712,
+        "name": "bngf",
+        "coordinates": {
+            "x": 33,
+            "y": 3.0
+        },
+        "creationDate": "2023-03-30T06:24:04.4100236",
+        "minimalPoint": 3,
+        "personalQualitiesMinimum": 3,
+        "difficulty": null,
+        "discipline": {
+            "name": "33",
+            "selfStudyHours": 44
+        }
+    },
+    {
+        "id": 8360344678949834213,
+        "name": "4",
+        "coordinates": {
+            "x": 4,
+            "y": 4.0
+        },
+        "creationDate": "2023-03-30T06:21:44.3411265",
+        "minimalPoint": 4,
+        "personalQualitiesMinimum": 4,
+        "difficulty": null,
+        "discipline": {
+            "name": "4",
+            "selfStudyHours": 4
+        }
+    },
+    {
+        "id": 7623197274746831750,
+        "name": "bngf",
+        "coordinates": {
+            "x": 33,
+            "y": 3.0
+        },
+        "creationDate": "2023-03-30T06:14:54.1805774",
+        "minimalPoint": 3,
+        "personalQualitiesMinimum": 3,
+        "difficulty": null,
+        "discipline": {
+            "name": "33",
+            "selfStudyHours": 44
+        }
+    },
+    {
+        "id": 7144644087226942485,
+        "name": "hjk",
+        "coordinates": {
+            "x": 14,
+            "y": 56.0
+        },
+        "creationDate": "2023-03-30T06:24:04.4090251",
+        "minimalPoint": 6,
+        "personalQualitiesMinimum": 4,
+        "difficulty": "EASY",
+        "discipline": {
+            "name": "vbjjhn",
+            "selfStudyHours": 77
+        }
+    },
+    {
+        "id": 7268620027429098857,
+        "name": "hjk",
+        "coordinates": {
+            "x": 14,
+            "y": 56.0
+        },
+        "creationDate": "2023-03-30T06:14:54.1791739",
+        "minimalPoint": 6,
+        "personalQualitiesMinimum": 4,
+        "difficulty": "EASY",
+        "discipline": {
+            "name": "vbjjhn",
+            "selfStudyHours": 77
+        }
+    },
+    {
+        "id": 4165058745034024124,
+        "name": "bngf",
+        "coordinates": {
+            "x": 33,
+            "y": 3.0
+        },
+        "creationDate": "2023-03-30T07:01:14.7330503",
+        "minimalPoint": 3,
+        "personalQualitiesMinimum": 3,
+        "difficulty": null,
+        "discipline": {
+            "name": "33",
+            "selfStudyHours": 44
+        }
+    },
+    {
+        "id": 8567792662948396909,
+        "name": "frd",
+        "coordinates": {
+            "x": 34,
+            "y": 43.0
+        },
+        "creationDate": "2023-03-30T06:24:04.4100236",
+        "minimalPoint": 3,
+        "personalQualitiesMinimum": 4,
+        "difficulty": null,
+        "discipline": {
+            "name": "43",
+            "selfStudyHours": 34
+        }
+    },
+    {
+        "id": 5325361007759555542,
+        "name": "fghjk",
+        "coordinates": {
+            "x": 76,
+            "y": 34.0
+        },
+        "creationDate": "2023-04-24T21:24:55.6903155",
+        "minimalPoint": 7,
+        "personalQualitiesMinimum": 5,
+        "difficulty": "EASY",
+        "discipline": {
+            "name": "sfs",
+            "selfStudyHours": 100
+        }
+    }
+]

@@ -27,7 +27,7 @@ data class LabWork(
     val personalQualitiesMinimum: Int,//Поле не может быть null, Значение поля должно быть больше 0
     val difficulty: Difficulty?,//Поле может быть null
     val discipline: Discipline //Поле не может быть null
-) : Comparable<LabWork> {
+) : Comparable<LabWork>, java.io.Serializable {
 
     /**
      * Compares this LabWork object with another LabWork object by their IDs.
