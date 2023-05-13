@@ -1,8 +1,6 @@
 package commands
 
 import data.LabWork
-import exeptions.ValidationException
-import utils.LabWorkReader
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
@@ -38,12 +36,5 @@ class UpdateCommand : Command() {
         } else {
             "No lab work found with ID: $id."
         }
-    }
-
-    override fun readArguments(input: () -> String): List<Any> {
-        val id = input().trim().toLongOrNull() ?: throw IllegalArgumentException("ID must be a number.")
-        val labWorkReader = LabWorkReader(input, validator)
-        val labWork = labWorkReader.readLabWork(id)
-        return listOf(id, labWork)
     }
 }
