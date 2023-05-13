@@ -13,7 +13,5 @@ class SaveCommand : Command() {
         return Messages.LAB_WORK_SUCCESS_SAVE
     }
 
-    override fun readArguments(input: () -> String): List<String> {
-        return emptyList()
-    }
+
 }

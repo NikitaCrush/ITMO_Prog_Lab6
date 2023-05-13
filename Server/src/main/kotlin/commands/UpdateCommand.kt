@@ -1,7 +1,10 @@
 package commands
 
+import data.LabWork
 import exeptions.ValidationException
 import utils.LabWorkReader
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 
 /**
  * The UpdateCommand class is responsible for updating a specific lab work in the collection
@@ -10,11 +13,12 @@ import utils.LabWorkReader
  * @property labWorkCollection The lab work collection to be updated.
  * @property validator The validator used for input validation.
  */
-class UpdateCommand : Command() {
 
+
+class UpdateCommand : Command() {
     override fun execute(args: List<Any>): String {
-        if (args.isEmpty() || args[0] !is String) {
-            return "ID is not provided or has an incorrect format."
+        if (args.size < 2 || args[0] !is String) {
+            return "ID and/or LabWork object is not provided or has an incorrect format."
         }
 
         val id: Long = try {
@@ -23,24 +27,23 @@ class UpdateCommand : Command() {
             return "Invalid ID format. Please enter a valid number."
         }
 
+        val labWorkJson = args[1] as String
+        val updatedLabWork = Json.decodeFromString<LabWork>(labWorkJson)
+
         val labWorkToUpdate = labWorkCollection.show().find { it.id == id }
 
         return if (labWorkToUpdate != null) {
-            try {
-                val labWorkReader = LabWorkReader({ readlnOrNull() ?: "" }, validator)
-                val updatedLabWork = labWorkReader.readLabWork(id, labWorkToUpdate.creationDate)
-                labWorkCollection.update(id, updatedLabWork)
-                "Lab work with ID: $id has been updated."
-            } catch (e: ValidationException) {
-                "Failed to update lab work due to invalid input: ${e.message}"
-            }
+            labWorkCollection.update(id, updatedLabWork)
+            "Lab work with ID: $id has been updated."
         } else {
             "No lab work found with ID: $id."
         }
     }
-    override fun readArguments(input: () -> String): List<Any> {
-        val inputString = input()
-        return listOf(inputString.trim())
-    }
 
+    override fun readArguments(input: () -> String): List<Any> {
+        val id = input().trim().toLongOrNull() ?: throw IllegalArgumentException("ID must be a number.")
+        val labWorkReader = LabWorkReader(input, validator)
+        val labWork = labWorkReader.readLabWork(id)
+        return listOf(id, labWork)
+    }
 }

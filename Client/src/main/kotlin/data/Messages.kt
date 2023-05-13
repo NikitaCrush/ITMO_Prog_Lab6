@@ -4,14 +4,8 @@ package data
  * An object that holds constant message strings for user prompts and errors.
  */
 object Messages {
-    const val LAB_WORK_SUCCESS_ADD = "Lab work added successfully."
-    const val LAB_WORK_SUCCESS_CLEAR = "Lab work collection cleared successfully."
-    const val LAB_WORK_SUCCESS_SAVE = "Lab work collection saved successfully."
     const val WELCOME = "Welcome to the LabWork Manager!"
     const val ENTER_HELP = "Enter 'help' for the list of available commands."
-    const val LAB_WORK_NOT_MAX = "The element is not the maximum and was not added to the collection."
-    const val FILE_NOT_FOUND = "File not found: "
-    const val SCRIPT_EXECUTED_SUCCESS = "Script executed successfully."
     const val ENTER_NAME = "Enter name: "
     const val ENTER_X = "Enter coordinates x (Long): "
     const val ENTER_Y = "Enter coordinates y (Double): "

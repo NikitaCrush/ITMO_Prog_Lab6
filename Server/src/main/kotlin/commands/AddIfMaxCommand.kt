@@ -2,6 +2,8 @@ package commands
 
 import data.LabWork
 import data.Messages
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import utils.LabWorkReader
 
 /**
@@ -14,14 +16,12 @@ import utils.LabWorkReader
 class AddIfMaxCommand : Command() {
 
     override fun execute(args: List<Any>): String {
-        val labWork = args[0] as LabWork
+        val labWorkJson = args[0] as String
+        val labWork = Json.decodeFromString<LabWork>(labWorkJson)
         val added = labWorkCollection.addIfMax(labWork)
         return if (added) Messages.LAB_WORK_SUCCESS_ADD else Messages.LAB_WORK_NOT_MAX
     }
 
-    override fun readArguments(input: () -> String): List<Any> {
-        val labWorkReader = LabWorkReader(input, validator)
-        val labWork = labWorkReader.readLabWork()
-        return listOf(labWork)
-    }
+
+
 }

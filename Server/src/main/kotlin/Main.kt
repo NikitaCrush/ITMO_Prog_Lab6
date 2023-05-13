@@ -8,7 +8,6 @@ import java.util.*
 
 val koinModule = module {
     single { Stack<String>() }
-    single { Validator() }
     single {
         val fileName = System.getenv("LAB_WORK_FILE") ?: "collection.json"
         LabWorkCollection.fromFile(fileName)

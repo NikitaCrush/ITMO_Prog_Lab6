@@ -39,13 +39,13 @@ class ServerManager(private val port: Int) {
         serverSocket?.close()
     }
 
-    fun receiveCommandData(): CommandData {
+    private fun receiveCommandData(): CommandData {
         println("Receiving command data...")
         val serializedCommand = reader?.readLine()
         return Json.decodeFromString(serializedCommand ?: "")
     }
 
-    fun sendResponse(response: Response) {
+    private fun sendResponse(response: Response) {
         println("Sending response...")
         val serializedResponse = Json.encodeToString(response)
         writer?.println(serializedResponse)
@@ -53,7 +53,7 @@ class ServerManager(private val port: Int) {
     }
 
 
-    fun handleCommands() {
+    private fun handleCommands() {
         while (true) {
             val commandData = receiveCommandData()
             if (commandData.commandName == "getCommands") {

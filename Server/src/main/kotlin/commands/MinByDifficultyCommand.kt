@@ -10,7 +10,5 @@ class MinByDifficultyCommand : Command() {
         return labWorkCollection.minByDifficulty().toString()
     }
 
-    override fun readArguments(input: () -> String): List<String> {
-        return emptyList()
-    }
+
 }

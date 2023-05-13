@@ -97,7 +97,7 @@ class LabWorkCollection(private val fileName: String) {
      *
      * @return The size of the collection.
      */
-     fun size(): Int {
+    private fun size(): Int {
         return labWorkQueue.size
     }
 

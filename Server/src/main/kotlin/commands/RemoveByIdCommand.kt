@@ -7,7 +7,16 @@ package commands
  */
 class RemoveByIdCommand : Command() {
     override fun execute(args: List<Any>): String {
-        val id = args[0] as Long
+        if (args.isEmpty() || args[0] !is String) {
+            return "ID is not provided or has an incorrect format."
+        }
+
+        val id: Long = try {
+            args[0].toString().toLong()
+        } catch (e: NumberFormatException) {
+            return "Invalid ID format. Please enter a valid number."
+        }
+
         val removed = labWorkCollection.removeById(id)
         return if (removed) {
             "Lab work removed successfully."
@@ -15,10 +24,6 @@ class RemoveByIdCommand : Command() {
             "No lab work found with the provided id."
         }
     }
-
-    override fun readArguments(input: () -> String): List<Any> {
-        val idStr = input()
-        val id = idStr.toLongOrNull() ?: throw IllegalArgumentException("Invalid ID")
-        return listOf(id)
-    }
 }
+
+
