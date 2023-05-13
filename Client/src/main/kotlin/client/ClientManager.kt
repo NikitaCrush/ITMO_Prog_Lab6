@@ -14,10 +14,19 @@ class ClientManager(private val host: String, private val port: Int) {
 
 
     fun connect() {
-        socket = Socket(host, port)
-        reader = BufferedReader(InputStreamReader(socket!!.getInputStream()))
-        writer = PrintWriter(BufferedWriter(OutputStreamWriter(socket!!.getOutputStream())))
+        while (true) {
+            try {
+                socket = Socket(host, port)
+                reader = BufferedReader(InputStreamReader(socket!!.getInputStream()))
+                writer = PrintWriter(BufferedWriter(OutputStreamWriter(socket!!.getOutputStream())))
+                break
+            } catch (e: IOException) {
+                println("Unable to connect to server. Retrying in 10 seconds...")
+                Thread.sleep(10000)
+            }
+        }
     }
+
 
     fun disconnect() {
         reader?.close()

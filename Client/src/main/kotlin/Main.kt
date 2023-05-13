@@ -1,6 +1,7 @@
 import utils.LabWorkReader
 import utils.Validator
 import client.*
+import data.Messages
 
 fun main() {
     // Initialize required instances
@@ -13,9 +14,10 @@ fun main() {
 
     // Initialize the command interpreter
     val commandInterpreter = CommandInterpreter(labWorkReader, clientManager)
-
+    println(Messages.WELCOME)
+    println(Messages.ENTER_HELP)
     while (true) {
-        print("Enter command: ")
+        print("> ")
         val input = readlnOrNull() ?: continue
         if (input.lowercase() == "exit") {
             break

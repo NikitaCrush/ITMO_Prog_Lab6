@@ -1,6 +1,8 @@
 package server
 
 import data.LabWork
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -16,20 +18,39 @@ class ServerManager(private val port: Int) {
     private var writer: PrintWriter? = null
     private var commandExecutor: CommandExecutor? = null
 
+
+
     fun startServer(commandExecutor: CommandExecutor) {
         this.commandExecutor = commandExecutor
 
         serverSocket = ServerSocket(port)
         println("Server started on port $port")
 
-        clientSocket = serverSocket!!.accept()
-        println("Client connected: ${clientSocket!!.inetAddress.hostAddress}")
+        while (true) {
+            clientSocket = serverSocket!!.accept()
+            println("Client connected: ${clientSocket!!.inetAddress.hostAddress}")
 
-        reader = BufferedReader(InputStreamReader(clientSocket!!.getInputStream()))
-        writer = PrintWriter(BufferedWriter(OutputStreamWriter(clientSocket!!.getOutputStream())))
+            reader = BufferedReader(InputStreamReader(clientSocket!!.getInputStream()))
+            writer = PrintWriter(BufferedWriter(OutputStreamWriter(clientSocket!!.getOutputStream())))
 
-        handleCommands()
+            GlobalScope.launch { handleCommands() }
+        }
     }
+
+//    fun startServer(commandExecutor: CommandExecutor) {
+//        this.commandExecutor = commandExecutor
+//
+//        serverSocket = ServerSocket(port)
+//        println("Server started on port $port")
+//
+//        clientSocket = serverSocket!!.accept()
+//        println("Client connected: ${clientSocket!!.inetAddress.hostAddress}")
+//
+//        reader = BufferedReader(InputStreamReader(clientSocket!!.getInputStream()))
+//        writer = PrintWriter(BufferedWriter(OutputStreamWriter(clientSocket!!.getOutputStream())))
+//
+//        handleCommands()
+//    }
 
 
     fun stopServer() {
@@ -55,34 +76,37 @@ class ServerManager(private val port: Int) {
 
     private fun handleCommands() {
         while (true) {
-            val commandData = receiveCommandData()
-            if (commandData.commandName == "getCommands") {
-                val commands = commandExecutor?.getAvailableCommands()?.keys
-                if (commands != null) {
-                    // Join the commands with ";" instead of ","
-                    sendResponse(Response(true, commands.joinToString(";")))
-                }
-            } else {
-                val command = commandExecutor?.getCommand(commandData.commandName)
-                if (command != null) {
-                    if (commandData.commandName == "add") {
-                        // Deserialize the LabWork instance from JSON
-                        val labWork = Json.decodeFromString<LabWork>(commandData.arguments[0].value!!)
-                        val responseMessage = command.execute(listOf(labWork))  // Pass the deserialized LabWork instance to the execute() method.
-                        sendResponse(Response(true, responseMessage))
-                    } else {
-                        val responseMessage = command.execute(commandData.arguments.map { it.value!! })  // Assuming the execute() method returns a response message.
-                        sendResponse(Response(true, responseMessage))
+            try {
+                val commandData = receiveCommandData()
+                if (commandData.commandName == "getCommands") {
+                    val commands = commandExecutor?.getAvailableCommands()?.keys
+                    if (commands != null) {
+                        // Join the commands with ";" instead of ","
+                        sendResponse(Response(true, commands.joinToString(";")))
                     }
                 } else {
-                    sendResponse(Response(false, "Command not found: ${commandData.commandName}"))
+                    val command = commandExecutor?.getCommand(commandData.commandName)
+                    if (command != null) {
+                        try {
+                            if (commandData.commandName == "add") {
+                                // Deserialize the LabWork instance from JSON
+                                val labWork = Json.decodeFromString<LabWork>(commandData.arguments[0].value!!)
+                                val responseMessage = command.execute(listOf(labWork))  // Pass the deserialized LabWork instance to the execute() method.
+                                sendResponse(Response(true, responseMessage))
+                            } else {
+                                val responseMessage = command.execute(commandData.arguments.map { it.value!! })  // Assuming the execute() method returns a response message.
+                                sendResponse(Response(true, responseMessage))
+                            }
+                        } catch (e: Exception) {
+                            sendResponse(Response(false, "Error executing command: ${e.message}"))
+                        }
+                    } else {
+                        sendResponse(Response(false, "Command not found: ${commandData.commandName}"))
+                    }
                 }
+            } catch (e: Exception) {
+                sendResponse(Response(false, "Error processing command: ${e.message}"))
             }
         }
     }
-
-
-
-
-
 }
