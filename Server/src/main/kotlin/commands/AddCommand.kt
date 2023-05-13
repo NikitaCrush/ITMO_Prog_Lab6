@@ -11,7 +11,13 @@ import utils.LabWorkReader
 class AddCommand : Command() {
 
     override fun execute(args: List<Any>): String {
-        val labWork = args[0] as LabWork
+        if (args.isEmpty()) {
+            throw IllegalArgumentException("Add command expects 1 argument, but got none.")
+        }
+
+        val labWork = args[0] as? LabWork
+            ?: throw IllegalArgumentException("Argument for add command is not of type LabWork.")
+
         labWorkCollection.add(labWork)
         return Messages.LAB_WORK_SUCCESS_ADD
     }

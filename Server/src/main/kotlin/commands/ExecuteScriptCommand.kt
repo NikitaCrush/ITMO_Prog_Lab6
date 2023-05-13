@@ -14,7 +14,7 @@ class ExecuteScriptCommand(
     private val printer: Printer,
     private val nestedLevel: Int = 0
 ) : Command() {
-    val stack: Stack<String> by inject()
+    private val stack: Stack<String> by inject()
     // Define the required arguments for this command
     private val requiredArgs = listOf("fileName")
 

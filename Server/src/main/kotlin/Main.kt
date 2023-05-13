@@ -24,13 +24,6 @@ fun main() {
     val serverManager = ServerManager(12345) // assuming 12345 is your port number
 
     runBlocking {
-        serverManager.startServer()
-        while (true) {
-            val commandData = serverManager.receiveCommandData()
-            val command = commandExecutor.getCommand(commandData.commandName)
-            val result = command?.execute(commandData.parameters) ?: "Command not found"
-            val response = Response(result.isNotEmpty(), result)
-            serverManager.sendResponse(response)
-        }
+        serverManager.startServer(commandExecutor)
     }
 }
