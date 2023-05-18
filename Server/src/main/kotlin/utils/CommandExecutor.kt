@@ -9,7 +9,7 @@ import java.util.*
  * @property labWorkCollection The [LabWorkCollection] instance to be manipulated by the commands.
  * @property printer The [Printer] instance to output the command results.
  */
-class CommandExecutor(printer: Printer) {
+class CommandExecutor() {
     private val commandMap: MutableMap<String, Command> = mutableMapOf()
 
     init {
@@ -21,7 +21,7 @@ class CommandExecutor(printer: Printer) {
         commandMap["remove_by_id"] = RemoveByIdCommand()
         commandMap["clear"] = ClearCommand()
         commandMap["save"] = SaveCommand()
-        commandMap["execute_script"] = ExecuteScriptCommand(this, printer)
+        commandMap["execute_script"] = ExecuteScriptCommand(this)
         commandMap["remove_first"] = RemoveFirstCommand()
         commandMap["remove_head"] = RemoveHeadCommand()
         commandMap["add_if_max"] = AddIfMaxCommand()

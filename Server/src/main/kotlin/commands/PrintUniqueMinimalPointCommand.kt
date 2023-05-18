@@ -10,6 +10,4 @@ class PrintUniqueMinimalPointCommand : Command() {
     override fun execute(args: List<Any>): String {
         return labWorkCollection.printUniqueMinimalPoint().joinToString("\n")
     }
-
-
 }

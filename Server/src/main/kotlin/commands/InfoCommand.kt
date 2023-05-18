@@ -9,6 +9,4 @@ class InfoCommand : Command() {
     override fun execute(args: List<Any>): String {
         return labWorkCollection.getInfo()
     }
-
-
 }

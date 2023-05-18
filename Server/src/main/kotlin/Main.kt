@@ -19,7 +19,7 @@ fun main() {
         modules(koinModule)
     }
 
-    val commandExecutor = CommandExecutor(ConsolePrinter())
+    val commandExecutor = CommandExecutor()
     val serverManager = ServerManager(12345) // assuming 12345 is your port number
 
     runBlocking {

@@ -12,6 +12,4 @@ class SaveCommand : Command() {
         labWorkCollection.saveToFile()
         return Messages.LAB_WORK_SUCCESS_SAVE
     }
-
-
 }

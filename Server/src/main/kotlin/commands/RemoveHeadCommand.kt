@@ -9,6 +9,4 @@ class RemoveHeadCommand : Command() {
     override fun execute(args: List<Any>): String {
         return labWorkCollection.removeHead().toString()
     }
-
-
 }

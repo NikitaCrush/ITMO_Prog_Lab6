@@ -9,5 +9,4 @@ class ShowCommand : Command() {
     override fun execute(args: List<Any>): String {
         return labWorkCollection.show().joinToString(separator = "\n")
     }
-
 }

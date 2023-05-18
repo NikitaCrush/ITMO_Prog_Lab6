@@ -1,19 +1,14 @@
 package commands
 
 import utils.CommandExecutor
-import utils.Printer
 import java.util.*
 
 class ExecuteScriptCommand(
     private val commandExecutor: CommandExecutor,
-    private val printer: Printer,
-    private val nestedLevel: Int = 0
 ) : Command() {
     private val stack: Stack<String> = Stack()
 
-    fun copy(nestedLevel: Int): ExecuteScriptCommand {
-        return ExecuteScriptCommand(commandExecutor, printer, nestedLevel)
-    }
+
 
     override fun execute(args: List<Any>): String {
         if (args.isEmpty() || args[0] !is String) {
@@ -54,7 +49,7 @@ class ExecuteScriptCommand(
 
         return when {
             command is ExecuteScriptCommand -> {
-                command.copy(nestedLevel = nestedLevel + 1).execute(args)
+                command.execute(args)
             }
             line.isNotBlank() -> {
                 command.execute(args)
@@ -68,18 +63,6 @@ class ExecuteScriptCommand(
         if (initialArg.isNotBlank()) {
             args.add(initialArg)
         }
-
-        // Read additional arguments if necessary
-        val requiredArgs = (command as? ExecuteScriptCommand)?.getRequiredArgs() ?: emptyList()
-        while (args.size < requiredArgs.size) {
-            input?.invoke()?.let { arg -> args.add(arg) }
-        }
-
         return args
-    }
-
-    private fun getRequiredArgs(): List<String> {
-        // Add the required arguments for each command here
-        return emptyList()
     }
 }

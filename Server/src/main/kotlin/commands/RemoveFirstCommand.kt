@@ -10,5 +10,4 @@ class RemoveFirstCommand : Command() {
         labWorkCollection.removeFirst()
         return "First element removed successfully."
     }
-
 }

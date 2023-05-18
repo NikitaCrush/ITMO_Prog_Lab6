@@ -9,7 +9,6 @@ import kotlinx.serialization.json.Json
  * by providing a valid ID.
  *
  * @property labWorkCollection The lab work collection to be updated.
- * @property validator The validator used for input validation.
  */
 
 

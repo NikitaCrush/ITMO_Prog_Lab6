@@ -10,5 +10,4 @@ class SumOfMinimalPointCommand : Command() {
     override fun execute(args: List<Any>): String {
         return labWorkCollection.sumOfMinimalPoint().toString()
     }
-
 }

@@ -10,7 +10,6 @@ import kotlinx.serialization.json.Json
  * element in the collection.
  *
  * @property labWorkCollection The lab work collection to add the lab work to.
- * @property validator The validator used for input validation.
  */
 class AddIfMaxCommand : Command() {
 

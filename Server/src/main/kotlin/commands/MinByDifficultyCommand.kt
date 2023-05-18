@@ -9,6 +9,4 @@ class MinByDifficultyCommand : Command() {
     override fun execute(args: List<Any>): String {
         return labWorkCollection.minByDifficulty().toString()
     }
-
-
 }
