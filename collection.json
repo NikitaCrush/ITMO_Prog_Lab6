@@ -32,19 +32,19 @@
         }
     },
     {
-        "id": 8891147222218289707,
-        "name": "d",
+        "id": 4133680106126679817,
+        "name": "ved",
         "coordinates": {
-            "x": 55,
-            "y": 55.0
+            "x": 3,
+            "y": 3.0
         },
-        "creationDate": "2023-05-13T03:50:40.6617679",
-        "minimalPoint": 500,
-        "personalQualitiesMinimum": 9,
-        "difficulty": "NORMAL",
+        "creationDate": "2023-05-19T06:26:15.8466576",
+        "minimalPoint": 3,
+        "personalQualitiesMinimum": 3,
+        "difficulty": null,
         "discipline": {
-            "name": "fddd",
-            "selfStudyHours": 33
+            "name": "3",
+            "selfStudyHours": 3
         }
     },
     {
@@ -77,6 +77,22 @@
         "discipline": {
             "name": "4",
             "selfStudyHours": 4
+        }
+    },
+    {
+        "id": 8891147222218289707,
+        "name": "d",
+        "coordinates": {
+            "x": 55,
+            "y": 55.0
+        },
+        "creationDate": "2023-05-13T03:50:40.6617679",
+        "minimalPoint": 500,
+        "personalQualitiesMinimum": 9,
+        "difficulty": "NORMAL",
+        "discipline": {
+            "name": "fddd",
+            "selfStudyHours": 33
         }
     }
 ]

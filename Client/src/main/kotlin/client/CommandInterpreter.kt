@@ -5,20 +5,8 @@ import kotlinx.serialization.json.Json
 import utils.LabWorkReader
 import java.io.File
 
-class CommandInterpreter(private val labWorkReader: LabWorkReader, private val clientManager: ClientManager) {
+class CommandInterpreter(private val labWorkReader: LabWorkReader) {
     private var supportedCommands: List<CommandData> = emptyList()
-
-    init {
-        updateSupportedCommands()
-    }
-
-    private fun updateSupportedCommands() {
-        val response = clientManager.sendCommandAndGetResponse(CommandData("getCommands"))
-        supportedCommands = response.message.split(";")
-            .map { it.split(",") }
-            .map { CommandData(it[0], arguments = it.drop(1).chunked(2).map { arg -> CommandArgument(arg[0], arg[1]) }) }
-    }
-
 
     private fun requestArguments(arguments: List<CommandArgument>) {
         arguments.forEach { argument ->
@@ -27,47 +15,51 @@ class CommandInterpreter(private val labWorkReader: LabWorkReader, private val c
         }
     }
 
-    fun interpret(input: String): CommandData {
+    fun interpret(input: String): Pair<CommandData, List<CommandArgument>> {
         val commandParts = input.split(" ")
         val commandName = commandParts[0]
         val parameters = commandParts.drop(1)
 
-        if (commandName == "add" || commandName == "add_if_max") {
-            val serializedLabWork = getSerializedLabWork()
-            return CommandData(commandName, listOf(CommandArgument("labWork", "LabWork", serializedLabWork)))
-        } else if (commandName == "update") {
-            if (parameters.isEmpty()) {
-                throw IllegalArgumentException("ID is required for the update command.")
+        val arguments = when (commandName) {
+            "add", "add_if_max" -> {
+                val serializedLabWork = getSerializedLabWork()
+                listOf(CommandArgument("labWork", "LabWork", serializedLabWork))
             }
-            val id = parameters[0]
-            val serializedLabWork = getSerializedLabWork()
-            return CommandData(commandName, listOf(CommandArgument("id", "Long", id), CommandArgument("labWork", "LabWork", serializedLabWork)))
-        }
-        if (commandName == "remove_by_id") {
-            if (parameters.isEmpty()) {
-                throw IllegalArgumentException("ID is required for the remove_by_id command.")
+            "update" -> {
+                if (parameters.isEmpty()) {
+                    throw IllegalArgumentException("ID is required for the update command.")
+                }
+                val id = parameters[0]
+                val serializedLabWork = getSerializedLabWork()
+                listOf(CommandArgument("id", "Long", id), CommandArgument("labWork", "LabWork", serializedLabWork))
             }
-            val id = parameters[0]
-            return CommandData(commandName, listOf(CommandArgument("id", "Long", id)))
-        }
-        if (commandName == "execute_script") {
-            if (parameters.isEmpty()) {
-                throw IllegalArgumentException("File name is required for the execute_script command.")
+            "remove_by_id" -> {
+                if (parameters.isEmpty()) {
+                    throw IllegalArgumentException("ID is required for the remove_by_id command.")
+                }
+                val id = parameters[0]
+                listOf(CommandArgument("id", "Long", id))
             }
-            val fileName = parameters[0]
-            val script = File(fileName).readText()
-            return CommandData(commandName, listOf(CommandArgument("script", "String", script)))
+            "execute_script" -> {
+                if (parameters.isEmpty()) {
+                    throw IllegalArgumentException("File name is required for the execute_script command.")
+                }
+                val fileName = parameters[0]
+                val script = File(fileName).readText()
+                listOf(CommandArgument("script", "String", script))
+            }
+            else -> {
+                parameters.map { CommandArgument(it, it, it) }
+            }
         }
 
-        return CommandData(commandName, parameters.map { CommandArgument(it, it, it) })
+        return Pair(CommandData(commandName, arguments), arguments)
     }
-
 
     private fun getSerializedLabWork(): String {
         val labWork = labWorkReader.readLabWork()
         return Json.encodeToString(labWork)
     }
-
 }
 
 

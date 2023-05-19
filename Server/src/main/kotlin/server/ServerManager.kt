@@ -1,8 +1,7 @@
 package server
 
 import data.LabWork
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -10,6 +9,8 @@ import utils.CommandExecutor
 import java.io.*
 import java.net.ServerSocket
 import java.net.Socket
+import kotlinx.coroutines.*
+
 
 class ServerManager(private val port: Int) {
     private var serverSocket: ServerSocket? = null
@@ -20,8 +21,9 @@ class ServerManager(private val port: Int) {
 
 
 
-    fun startServer(commandExecutor: CommandExecutor) {
-        this.commandExecutor = commandExecutor
+
+    fun startServer(commandExecutor: CommandExecutor) = runBlocking {
+        this@ServerManager.commandExecutor = commandExecutor
 
         serverSocket = ServerSocket(port)
         println("Server started on port $port")
@@ -30,27 +32,16 @@ class ServerManager(private val port: Int) {
             clientSocket = serverSocket!!.accept()
             println("Client connected: ${clientSocket!!.inetAddress.hostAddress}")
 
-            reader = BufferedReader(InputStreamReader(clientSocket!!.getInputStream()))
-            writer = PrintWriter(BufferedWriter(OutputStreamWriter(clientSocket!!.getOutputStream())))
+            // create a new coroutine for each client connection
+            launch(Dispatchers.IO) {
+                reader = BufferedReader(InputStreamReader(clientSocket!!.getInputStream()))
+                writer = PrintWriter(BufferedWriter(OutputStreamWriter(clientSocket!!.getOutputStream())))
 
-            GlobalScope.launch { handleCommands() }
+                handleCommands()
+            }
         }
     }
 
-//    fun startServer(commandExecutor: CommandExecutor) {
-//        this.commandExecutor = commandExecutor
-//
-//        serverSocket = ServerSocket(port)
-//        println("Server started on port $port")
-//
-//        clientSocket = serverSocket!!.accept()
-//        println("Client connected: ${clientSocket!!.inetAddress.hostAddress}")
-//
-//        reader = BufferedReader(InputStreamReader(clientSocket!!.getInputStream()))
-//        writer = PrintWriter(BufferedWriter(OutputStreamWriter(clientSocket!!.getOutputStream())))
-//
-//        handleCommands()
-//    }
 
 
     fun stopServer() {
@@ -75,13 +66,12 @@ class ServerManager(private val port: Int) {
 
 
     private fun handleCommands() {
-        while (true) {
-            try {
+        try {
+            while (true) {
                 val commandData = receiveCommandData()
                 if (commandData.commandName == "getCommands") {
                     val commands = commandExecutor?.getAvailableCommands()?.keys
                     if (commands != null) {
-                        // Join the commands with ";" instead of ","
                         sendResponse(Response(true, commands.joinToString(";")))
                     }
                 } else {
@@ -104,9 +94,15 @@ class ServerManager(private val port: Int) {
                         sendResponse(Response(false, "Command not found: ${commandData.commandName}"))
                     }
                 }
-            } catch (e: Exception) {
-                sendResponse(Response(false, "Error processing command: ${e.message}"))
             }
+        } catch (e: Exception) {
+            sendResponse(Response(false, "Error processing command: ${e.message}"))
+        } finally {
+            println("Closing client connection...")
+            reader?.close()
+            writer?.close()
+            clientSocket?.close()
         }
     }
+
 }
