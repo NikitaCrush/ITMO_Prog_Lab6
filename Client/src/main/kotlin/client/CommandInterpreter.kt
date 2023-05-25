@@ -4,17 +4,18 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import utils.LabWorkReader
 import java.io.File
-
+/**
+ * This class is responsible for interpreting the user's command.
+ *
+ * @property labWorkReader An instance of [LabWorkReader] to read LabWork objects when required.
+ */
 class CommandInterpreter(private val labWorkReader: LabWorkReader) {
-    private var supportedCommands: List<CommandData> = emptyList()
-
-    private fun requestArguments(arguments: List<CommandArgument>) {
-        arguments.forEach { argument ->
-            print("Enter ${argument.name} (${argument.type}): ")
-            argument.value = readlnOrNull()
-        }
-    }
-
+    /**
+     * Interprets a string command.
+     *
+     * @param input The string input representing the command.
+     * @return A pair of [CommandData] and a list of [CommandArgument]s required for this command.
+     */
     fun interpret(input: String): Pair<CommandData, List<CommandArgument>> {
         val commandParts = input.split(" ")
         val commandName = commandParts[0]
@@ -56,6 +57,9 @@ class CommandInterpreter(private val labWorkReader: LabWorkReader) {
         return Pair(CommandData(commandName, arguments), arguments)
     }
 
+    /**
+     * Gets serialized lab work
+     */
     private fun getSerializedLabWork(): String {
         val labWork = labWorkReader.readLabWork()
         return Json.encodeToString(labWork)
