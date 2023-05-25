@@ -6,10 +6,8 @@ import java.util.*
 /**
  * Class responsible for managing and executing commands.
  *
- * @property labWorkCollection The [LabWorkCollection] instance to be manipulated by the commands.
- * @property printer The [Printer] instance to output the command results.
  */
-class CommandExecutor() {
+class CommandExecutor {
     private val commandMap: MutableMap<String, Command> = mutableMapOf()
 
     init {

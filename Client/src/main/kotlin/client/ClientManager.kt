@@ -50,8 +50,4 @@ class ClientManager(private val host: String, private val port: Int) {
         return Json.decodeFromString(serializedResponse)
     }
 
-    fun sendCommandAndGetResponse(commandData: CommandData): Response {
-        sendCommand(commandData)
-        return receiveResponse()
-    }
 }

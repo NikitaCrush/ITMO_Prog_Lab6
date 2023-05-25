@@ -26,7 +26,7 @@ class ExecuteScriptCommand(
         while (lines.hasNext()) {
             val line = lines.next().trim()
             if (line.isNotBlank()) {
-                val commandResult = executeLine(line, lines::next)
+                val commandResult = executeLine(line)
                 if (commandResult != null) {
                     results.append(commandResult).append("\n")
                 }
@@ -37,7 +37,7 @@ class ExecuteScriptCommand(
         return results.append("Script executed successfully").toString()
     }
 
-    private fun executeLine(line: String, input: () -> String): String? {
+    private fun executeLine(line: String): String? {
         val commandParts = line.split(" ", limit = 2)
         val commandName = commandParts[0]
 
@@ -45,7 +45,7 @@ class ExecuteScriptCommand(
             ?: throw IllegalArgumentException("Unknown command: $commandName")
 
         val initialArg = commandParts.getOrElse(1) { "" }
-        val args = readArguments(command, input, initialArg)
+        val args = readArguments(initialArg)
 
         return when {
             command is ExecuteScriptCommand -> {
@@ -58,7 +58,7 @@ class ExecuteScriptCommand(
         }
     }
 
-    private fun readArguments(command: Command, input: (() -> String)?, initialArg: String): List<Any> {
+    private fun readArguments(initialArg: String): List<Any> {
         val args = mutableListOf<Any>()
         if (initialArg.isNotBlank()) {
             args.add(initialArg)

@@ -19,7 +19,7 @@ fun main() {
             break
         }
 
-        val (commandData, arguments) = commandInterpreter.interpret(input)
+        val (commandData, _) = commandInterpreter.interpret(input)
         val task = Task(commandData)
 
         // Initialize the ClientManager

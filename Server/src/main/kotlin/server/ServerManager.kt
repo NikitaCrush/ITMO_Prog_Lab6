@@ -44,12 +44,12 @@ class ServerManager(private val port: Int) {
 
 
 
-    fun stopServer() {
-        reader?.close()
-        writer?.close()
-        clientSocket?.close()
-        serverSocket?.close()
-    }
+//    fun stopServer() {
+//        reader?.close()
+//        writer?.close()
+//        clientSocket?.close()
+//        serverSocket?.close()
+//    }
 
     private fun receiveCommandData(): CommandData {
         println("Receiving command data...")
